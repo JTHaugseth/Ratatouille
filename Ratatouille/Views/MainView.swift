@@ -13,6 +13,11 @@ struct MainView: View {
             NavigationView {
                 VStack {
                     Spacer()
+                    Image(systemName: "book.closed.fill") // Ikon over teksten
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 60, height: 60)
+                        .foregroundColor(.gray)
                     Text("Ingen matoppskrifter")
                         .font(.title)
                         .foregroundColor(.gray)
@@ -20,28 +25,22 @@ struct MainView: View {
                 }
                 .navigationTitle("RATATOUILLE")
                 .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Image(systemName: "line.horizontal.3")
-                    }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Image(systemName: "bell")
-                    }
-                }
             }
             .tabItem {
-                Label("Mine oppskrifter", systemImage: "book.fill")
+                Image(systemName: "book.fill")
+                Text("Mine oppskrifter")
             }
             
-            // Her kan du legge til de andre fanene dine
-            Text("Søk")
+            SearchView()
                 .tabItem {
-                    Label("Søk", systemImage: "magnifyingglass")
+                    Image(systemName: "magnifyingglass")
+                    Text("Søk")
                 }
             
-            Text("Innstillinger")
+            SettingsView()
                 .tabItem {
-                    Label("Innstillinger", systemImage: "gear")
+                    Image(systemName: "gear")
+                    Text("Innstillinger")
                 }
         }
     }
