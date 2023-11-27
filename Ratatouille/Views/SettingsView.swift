@@ -13,24 +13,23 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             List {
-                
                 Section(header: Text("Innstillinger")) {
-                    NavigationLink(destination: Text("Rediger landområder")) {
+                    NavigationLink(destination: AreaListView()) {
                         HStack {
                             Image(systemName: "globe")
-                            Text("Redigere landområder")
+                            Text("Importer Landområder")
                         }
                     }
-                    NavigationLink(destination: Text("Rediger kategorier")) {
+                    NavigationLink(destination: CategoryListView()) {
                         HStack {
                             Image(systemName: "list.bullet")
-                            Text("Redigere kategorier")
+                            Text("Importer Kategorier")
                         }
                     }
-                    NavigationLink(destination: Text("Rediger ingredienser")) {
+                    NavigationLink(destination: IngredientListView()) {
                         HStack {
                             Image(systemName: "leaf")
-                            Text("Redigere ingredienser")
+                            Text("Importer Ingredienser")
                         }
                     }
                 }
@@ -39,7 +38,7 @@ struct SettingsView: View {
                     Toggle(isOn: $isDarkModeEnabled) {
                         HStack {
                             Image(systemName: "moon.fill")
-                            Text("Aktiver mørk modus")
+                            Text("Aktiver Mørk-Modus")
                         }
                     }
                 }
@@ -48,7 +47,7 @@ struct SettingsView: View {
                     NavigationLink(destination: Text("Administrere arkiv")) {
                         HStack {
                             Image(systemName: "archivebox")
-                            Text("Administrere arkiv")
+                            Text("Administrer Arkiv")
                         }
                     }
                 }
