@@ -14,7 +14,7 @@ struct AreaListView: View {
         List(viewModel.areas, id: \.strArea) { area in
             Text(area.strArea)
         }
-        .onAppear(perform: viewModel.loadAreas)
+        .onAppear(perform: viewModel.loadAreasFromAPI)
         .navigationTitle("Areas")
         .navigationBarItems(trailing: Button(action: {
             // Handle add category action

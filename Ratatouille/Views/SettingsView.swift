@@ -14,19 +14,19 @@ struct SettingsView: View {
         NavigationView {
             List {
                 Section(header: Text("Innstillinger")) {
-                    NavigationLink(destination: AreaListView()) {
+                    NavigationLink(destination: MyAreasView()) {
                         HStack {
                             Image(systemName: "globe")
                             Text("Importer Landområder")
                         }
                     }
-                    NavigationLink(destination: CategoryListView()) {
+                    NavigationLink(destination: MyCategoriesView()) {
                         HStack {
                             Image(systemName: "list.bullet")
                             Text("Importer Kategorier")
                         }
                     }
-                    NavigationLink(destination: IngredientListView()) {
+                    NavigationLink(destination: MyIngredientsView()) {
                         HStack {
                             Image(systemName: "leaf")
                             Text("Importer Ingredienser")

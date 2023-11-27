@@ -14,7 +14,7 @@ struct IngredientListView: View {
         List(viewModel.ingredients, id: \.idIngredient) { ingredient in
             Text(ingredient.strIngredient)
         }
-        .onAppear(perform: viewModel.loadIngredients)
+        .onAppear(perform: viewModel.loadIngredientsFromAPI)
         .navigationTitle("Ingredients")
         .navigationBarItems(trailing: Button(action: {
             // Handle add category action

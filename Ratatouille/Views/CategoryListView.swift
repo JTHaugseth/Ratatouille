@@ -14,7 +14,7 @@ struct CategoryListView: View {
         List(viewModel.categories, id: \.strCategory) { category in
             Text(category.strCategory)
         }
-        .onAppear(perform: viewModel.loadCategories)
+        .onAppear(perform: viewModel.loadCategoriesFromAPI)
         .navigationTitle("Categories")
         .navigationBarItems(trailing: Button(action: {
             // Handle add category action
