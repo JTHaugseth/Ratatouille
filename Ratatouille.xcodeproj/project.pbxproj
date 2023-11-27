@@ -8,19 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		B9A066862B14F6EF0041365F /* RatatouilleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A066852B14F6EF0041365F /* RatatouilleApp.swift */; };
-		B9A066882B14F6EF0041365F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A066872B14F6EF0041365F /* ContentView.swift */; };
-		B9A0668A2B14F6EF0041365F /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A066892B14F6EF0041365F /* Item.swift */; };
 		B9A0668C2B14F6F00041365F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9A0668B2B14F6F00041365F /* Assets.xcassets */; };
 		B9A0668F2B14F6F00041365F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9A0668E2B14F6F00041365F /* Preview Assets.xcassets */; };
+		B9BC91652B150410008DC323 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BC91642B150410008DC323 /* MainView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B9A066822B14F6EF0041365F /* Ratatouille.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ratatouille.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9A066852B14F6EF0041365F /* RatatouilleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatatouilleApp.swift; sourceTree = "<group>"; };
-		B9A066872B14F6EF0041365F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		B9A066892B14F6EF0041365F /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		B9A0668B2B14F6F00041365F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B9A0668E2B14F6F00041365F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B9BC91642B150410008DC323 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,8 +52,10 @@
 			isa = PBXGroup;
 			children = (
 				B9A066852B14F6EF0041365F /* RatatouilleApp.swift */,
-				B9A066872B14F6EF0041365F /* ContentView.swift */,
-				B9A066892B14F6EF0041365F /* Item.swift */,
+				B9BC91612B150241008DC323 /* Views */,
+				B9BC91622B150263008DC323 /* ViewModels */,
+				B9BC91602B150234008DC323 /* Models */,
+				B9BC91632B15026D008DC323 /* Services */,
 				B9A0668B2B14F6F00041365F /* Assets.xcassets */,
 				B9A0668D2B14F6F00041365F /* Preview Content */,
 			);
@@ -68,6 +68,35 @@
 				B9A0668E2B14F6F00041365F /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		B9BC91602B150234008DC323 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		B9BC91612B150241008DC323 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B9BC91642B150410008DC323 /* MainView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B9BC91622B150263008DC323 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		B9BC91632B15026D008DC323 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,8 +169,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B9A066882B14F6EF0041365F /* ContentView.swift in Sources */,
-				B9A0668A2B14F6EF0041365F /* Item.swift in Sources */,
+				B9BC91652B150410008DC323 /* MainView.swift in Sources */,
 				B9A066862B14F6EF0041365F /* RatatouilleApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
