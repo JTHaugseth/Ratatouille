@@ -27,6 +27,10 @@
 		B9BC91812B1558EB008DC323 /* MyCategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BC91802B1558EB008DC323 /* MyCategoriesView.swift */; };
 		B9BC91832B155909008DC323 /* MyIngredientsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BC91822B155909008DC323 /* MyIngredientsView.swift */; };
 		B9BC91852B157488008DC323 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BC91842B157488008DC323 /* SearchBar.swift */; };
+		B9BC91882B165899008DC323 /* AreaDbModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BC91872B165899008DC323 /* AreaDbModel.swift */; };
+		B9BC918A2B1658B0008DC323 /* CategoryDbModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BC91892B1658B0008DC323 /* CategoryDbModel.swift */; };
+		B9BC918D2B1658D7008DC323 /* IngredientDbModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BC918C2B1658D7008DC323 /* IngredientDbModel.swift */; };
+		B9BC918F2B1658E5008DC323 /* MealDbModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BC918E2B1658E5008DC323 /* MealDbModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +55,10 @@
 		B9BC91802B1558EB008DC323 /* MyCategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCategoriesView.swift; sourceTree = "<group>"; };
 		B9BC91822B155909008DC323 /* MyIngredientsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyIngredientsView.swift; sourceTree = "<group>"; };
 		B9BC91842B157488008DC323 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		B9BC91872B165899008DC323 /* AreaDbModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaDbModel.swift; sourceTree = "<group>"; };
+		B9BC91892B1658B0008DC323 /* CategoryDbModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDbModel.swift; sourceTree = "<group>"; };
+		B9BC918C2B1658D7008DC323 /* IngredientDbModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientDbModel.swift; sourceTree = "<group>"; };
+		B9BC918E2B1658E5008DC323 /* MealDbModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDbModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +96,7 @@
 				B9BC91622B150263008DC323 /* ViewModels */,
 				B9BC91602B150234008DC323 /* Models */,
 				B9BC91632B15026D008DC323 /* Services */,
+				B9BC91862B165812008DC323 /* Database */,
 				B9A0668B2B14F6F00041365F /* Assets.xcassets */,
 				B9A0668D2B14F6F00041365F /* Preview Content */,
 			);
@@ -145,6 +154,17 @@
 				B9BC916A2B154CDF008DC323 /* ApiService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		B9BC91862B165812008DC323 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				B9BC91872B165899008DC323 /* AreaDbModel.swift */,
+				B9BC91892B1658B0008DC323 /* CategoryDbModel.swift */,
+				B9BC918C2B1658D7008DC323 /* IngredientDbModel.swift */,
+				B9BC918E2B1658E5008DC323 /* MealDbModel.swift */,
+			);
+			path = Database;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,13 +241,17 @@
 				B9BC916B2B154CDF008DC323 /* ApiService.swift in Sources */,
 				B9BC91752B154E17008DC323 /* CategoryViewModel.swift in Sources */,
 				B9BC91692B1531F0008DC323 /* SettingsView.swift in Sources */,
+				B9BC918F2B1658E5008DC323 /* MealDbModel.swift in Sources */,
 				B9BC91672B1531E4008DC323 /* SearchView.swift in Sources */,
+				B9BC918A2B1658B0008DC323 /* CategoryDbModel.swift in Sources */,
 				B9BC91852B157488008DC323 /* SearchBar.swift in Sources */,
 				B9BC917D2B154FC8008DC323 /* AreaListView.swift in Sources */,
 				B9BC91712B154DD8008DC323 /* Ingredient.swift in Sources */,
 				B9BC91832B155909008DC323 /* MyIngredientsView.swift in Sources */,
+				B9BC918D2B1658D7008DC323 /* IngredientDbModel.swift in Sources */,
 				B9BC917B2B154F54008DC323 /* IngredientListView.swift in Sources */,
 				B9BC91812B1558EB008DC323 /* MyCategoriesView.swift in Sources */,
+				B9BC91882B165899008DC323 /* AreaDbModel.swift in Sources */,
 				B9BC91792B154E60008DC323 /* CategoryListView.swift in Sources */,
 				B9BC916D2B154DAB008DC323 /* Area.swift in Sources */,
 				B9BC917F2B1558A3008DC323 /* MyAreasView.swift in Sources */,

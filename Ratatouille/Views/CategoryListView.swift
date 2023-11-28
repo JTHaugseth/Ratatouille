@@ -11,8 +11,22 @@ struct CategoryListView: View {
     @ObservedObject var viewModel = CategoryViewModel()
     
     var body: some View {
-        List(viewModel.categories, id: \.strCategory) { category in
+        List(viewModel.categories, id: \.idCategory) { category in
             HStack {
+                if let url = URL(string: category.strCategoryThumb) {
+                    AsyncImage(url: url) { image in
+                        image.resizable()
+                    } placeholder: {
+                        Color.gray
+                    }
+                    .frame(width: 50, height: 50)
+                    .cornerRadius(25)
+                } else {
+                    Color.gray // Fallback placeholder
+                        .frame(width: 50, height: 50)
+                        .cornerRadius(25)
+                }
+
                 Text(category.strCategory)
                 Spacer()
                 Image(systemName: viewModel.isSelected(category: category) ? "checkmark.square" : "square")

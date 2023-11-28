@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct RatatouilleApp: App {
@@ -13,5 +14,6 @@ struct RatatouilleApp: App {
         WindowGroup {
             MainView()
         }
+        .modelContainer(for: [AreaDbModel.self, CategoryDbModel.self, IngredientDbModel.self, MealDbModel.self])
     }
 }

@@ -18,17 +18,18 @@ class CategoryViewModel: ObservableObject {
     }
 
     func loadCategoriesFromAPI() {
-        apiService.fetchCategories { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let categories):
-                    self?.categories = categories
-                case .failure(let error):
-                    print(error.localizedDescription)
+            apiService.fetchCategories { [weak self] result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let categories):
+                        print("Fetched categories: \(categories)")
+                        self?.categories = categories
+                    case .failure(let error):
+                        print("Error fetching categories: \(error.localizedDescription)")
+                    }
                 }
             }
         }
-    }
 
     func isSelected(category: Category) -> Bool {
         selectedCategories.contains(category.strCategory)

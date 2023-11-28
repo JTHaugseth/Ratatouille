@@ -13,6 +13,21 @@ struct AreaListView: View {
     var body: some View {
         List(viewModel.areas, id: \.strArea) { area in
             HStack {
+                if let url = viewModel.flagURL(for: area) {
+                    AsyncImage(url: url) { image in
+                        image.resizable()
+                    } placeholder: {
+                        Color.gray
+                    }
+                    .frame(width: 50, height: 50)
+                    
+                } else {
+                    // Fallback if the flag URL is not available
+                    Color.gray
+                        .frame(width: 50, height: 50)
+                        .cornerRadius(25)
+                }
+
                 Text(area.strArea)
                 Spacer()
                 Image(systemName: viewModel.isSelected(area: area) ? "checkmark.square" : "square")

@@ -12,6 +12,44 @@ class AreaViewModel: ObservableObject {
     @Published var selectedAreas = Set<String>()
     private let apiService = ApiService()
     
+    let countryNameToCode: [String: String] = [
+        "American": "US",
+        "British": "GB",
+        "Canadian": "CA",
+        "Chinese": "CN",
+        "Croatian": "HR",
+        "Dutch": "NL",
+        "Egyptian": "EG",
+        "Filipino": "PH",
+        "French": "FR",
+        "Greek": "GR",
+        "Indian": "IN",
+        "Irish": "IE",
+        "Italian": "IT",
+        "Jamaican": "JM",
+        "Japanese": "JP",
+        "Kenyan": "KE",
+        "Malaysian": "MY",
+        "Mexican": "MX",
+        "Moroccan": "MA",
+        "Polish": "PL",
+        "Portuguese": "PT",
+        "Russian": "RU",
+        "Spanish": "ES",
+        "Thai": "TH",
+        "Tunisian": "TN",
+        "Turkish": "TR",
+        "Unknown": "", // No code for "Unknown"
+        "Vietnamese": "VN"
+    ]
+    
+    func flagURL(for area: Area) -> URL? {
+            guard let countryCode = countryNameToCode[area.strArea] else {
+                return nil
+            }
+            return URL(string: "https://flagsapi.com/\(countryCode)/flat/64.png")
+        }
+    
     func loadSavedAreas() {
         // Load areas from SwiftData and update `areas`
         //areas = databaseManager.fetchAllAreas()

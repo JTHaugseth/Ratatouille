@@ -9,8 +9,31 @@ import Foundation
 
 class ApiService {
     func fetchCategories(completion: @escaping (Result<[Category], Error>) -> Void) {
-        let urlString = "https://www.themealdb.com/api/json/v1/1/list.php?c=list"
-        fetchItems(urlString: urlString, completion: completion)
+        let urlString = "https://www.themealdb.com/api/json/v1/1/categories.php"
+        guard let url = URL(string: urlString) else {
+            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(NSError(domain: "", code: -1, userInfo: nil)))
+                return
+            }
+            
+            do {
+                let decoder = JSONDecoder()
+                let response = try decoder.decode(CategoryListResponse.self, from: data)
+                completion(.success(response.categories))
+            } catch {
+                completion(.failure(error))
+            }
+        }.resume()
     }
     
     func fetchAreas(completion: @escaping (Result<[Area], Error>) -> Void) {
@@ -53,4 +76,8 @@ class ApiService {
 
 struct ListResponse<T: Decodable>: Decodable {
     let meals: [T]
+}
+
+struct CategoryListResponse: Decodable {
+    let categories: [Category]
 }
