@@ -9,9 +9,9 @@ import Foundation
 
 class AreaViewModel: ObservableObject {
     @Published var areas: [Area] = []
+    @Published var selectedAreas = Set<String>()
     private let apiService = ApiService()
-    //private let databaseManager = DatabaseManager()
-
+    
     func loadSavedAreas() {
         // Load areas from SwiftData and update `areas`
         //areas = databaseManager.fetchAllAreas()
@@ -23,13 +23,36 @@ class AreaViewModel: ObservableObject {
                 switch result {
                 case .success(let areas):
                     self?.areas = areas
-                    // Optionally, save new areas to SwiftData here
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
             }
         }
     }
-    
-    // Add other necessary methods, e.g., for saving areas to SwiftData
+
+    func isSelected(area: Area) -> Bool {
+        selectedAreas.contains(area.strArea)
+    }
+
+    func toggleSelection(area: Area) {
+        if isSelected(area: area) {
+            selectedAreas.remove(area.strArea)
+        } else {
+            selectedAreas.insert(area.strArea)
+        }
+    }
+
+    func toggleAllSelections() {
+        if selectedAreas.count == areas.count {
+            selectedAreas.removeAll()
+        } else {
+            selectedAreas = Set(areas.map { $0.strArea })
+        }
+    }
+
+    func importSelectedAreas() {
+        // Placeholder for database import logic
+        // This function should handle saving the selectedAreas to your database
+        print("Selected areas to import: \(selectedAreas)")
+    }
 }

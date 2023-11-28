@@ -12,15 +12,27 @@ struct CategoryListView: View {
     
     var body: some View {
         List(viewModel.categories, id: \.strCategory) { category in
-            Text(category.strCategory)
+            HStack {
+                Text(category.strCategory)
+                Spacer()
+                Image(systemName: viewModel.isSelected(category: category) ? "checkmark.square" : "square")
+                    .resizable()
+                    .frame(width: 24, height: 24)
+            }
+            .contentShape(Rectangle())
+            .onTapGesture {
+                viewModel.toggleSelection(category: category)
+            }
+            .listRowBackground(viewModel.isSelected(category: category) ? Color.green.opacity(0.4) : Color.clear)
         }
         .onAppear(perform: viewModel.loadCategoriesFromAPI)
-        .navigationTitle("Categories")
-        .navigationBarItems(trailing: Button(action: {
-            // Handle add category action
-        }) {
-            Image(systemName: "plus")
-        })
+        .navigationTitle("Kategorier")
+        .navigationBarItems(
+            trailing: HStack {
+                Button("Velg alle", action: viewModel.toggleAllSelections)
+                Button("Importer", action: viewModel.importSelectedCategories)
+            }
+        )
     }
 }
 
