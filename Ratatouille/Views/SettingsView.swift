@@ -6,11 +6,9 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct SettingsView: View {
     @State private var isDarkModeEnabled = false
-    @State private var path = ""
     
     var body: some View {
         NavigationView {
@@ -46,7 +44,7 @@ struct SettingsView: View {
                 }
                 
                 Section {
-                    NavigationLink(destination: Text("Administrere arkiv")) {
+                    NavigationLink(destination: ArchiveView()) {
                         HStack {
                             Image(systemName: "archivebox")
                             Text("Administrer Arkiv")
