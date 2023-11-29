@@ -11,11 +11,6 @@ class IngredientViewModel: ObservableObject {
     @Published var ingredients: [Ingredient] = []
     @Published var selectedIngredients = Set<String>()
     private let apiService = ApiService()
-    
-    func loadSavedIngredients() {
-        // Load ingredients from SwiftData and update `ingredients`
-        //ingredients = databaseManager.fetchAllIngredients()
-    }
 
     func loadIngredientsFromAPI() {
         apiService.fetchIngredients { [weak self] result in
@@ -48,11 +43,6 @@ class IngredientViewModel: ObservableObject {
         } else {
             selectedIngredients = Set(ingredients.map { $0.idIngredient })
         }
-    }
-
-    func importSelectedIngredients() {
-        // Placeholder for database import logic
-        print("Selected ingredients to import: \(selectedIngredients)")
     }
 
     func filteredIngredients(_ searchText: String) -> [Ingredient] {

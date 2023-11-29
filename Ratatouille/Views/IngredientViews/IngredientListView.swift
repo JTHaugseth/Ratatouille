@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct IngredientListView: View {
     @ObservedObject var viewModel = IngredientViewModel()
+    @Environment(\.modelContext) private var context
+    @Environment(\.presentationMode) var presentationMode
     @State private var searchText = ""
 
     var body: some View {
@@ -34,9 +37,24 @@ struct IngredientListView: View {
         .navigationBarItems(
             trailing: HStack {
                 Button("Velg alle", action: viewModel.toggleAllSelections)
-                Button("Importer", action: viewModel.importSelectedIngredients)
+                Button("Importer", action: importSelectedIngredients)
             }
         )
+    }
+    func importSelectedIngredients() {
+        for ingredient in viewModel.ingredients {
+            if viewModel.selectedIngredients.contains(ingredient.idIngredient) {
+                let newIngredient = IngredientDbModel()
+                newIngredient.oldID = ingredient.idIngredient
+                newIngredient.title = ingredient.strIngredient
+                newIngredient.descriptions = ingredient.strDescription ?? ""
+                newIngredient.type = ingredient.strType ?? ""
+                
+                context.insert(newIngredient)
+            }
+        }
+        presentationMode.wrappedValue.dismiss()
+        
     }
 }
 

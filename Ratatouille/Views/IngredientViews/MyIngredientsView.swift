@@ -6,23 +6,24 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct MyIngredientsView: View {
     @ObservedObject var viewModel = IngredientViewModel()
+    
+    @Query(filter: #Predicate<IngredientDbModel>{$0.archived == false},
+           sort: \IngredientDbModel.title, order: .forward, animation: .default) private var savedIngredients: [IngredientDbModel]
 
     var body: some View {
         VStack {
-            if viewModel.ingredients.isEmpty {
-                Spacer()
-                Text("Ingen Ingredienser")
-                Spacer()
-            } else {
-                List(viewModel.ingredients, id: \.idIngredient) { ingredient in
-                    Text(ingredient.strIngredient)
+            List(savedIngredients) { ingredient in
+                NavigationLink(destination: IngredientDetailView(ingredient: .constant(ingredient))) {
+                    HStack {
+                        Text(ingredient.title)
+                    }
                 }
             }
         }
-        .onAppear(perform: viewModel.loadSavedIngredients)
         .navigationBarItems(trailing: NavigationLink(destination: IngredientListView()) {
             Image(systemName: "plus")
         })
