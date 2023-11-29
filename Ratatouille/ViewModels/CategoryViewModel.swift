@@ -11,11 +11,6 @@ class CategoryViewModel: ObservableObject {
     @Published var categories: [Category] = []
     @Published var selectedCategories = Set<String>()
     private let apiService = ApiService()
-    
-    func loadSavedCategories() {
-        // Load categories from SwiftData and update `categories`
-        //categories = databaseManager.fetchAllCategories()
-    }
 
     func loadCategoriesFromAPI() {
             apiService.fetchCategories { [weak self] result in
@@ -49,10 +44,5 @@ class CategoryViewModel: ObservableObject {
         } else {
             selectedCategories = Set(categories.map { $0.strCategory })
         }
-    }
-
-    func importSelectedCategories() {
-        // Placeholder for database import logic
-        print("Selected categories to import: \(selectedCategories)")
     }
 }

@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct CategoryListView: View {
     @ObservedObject var viewModel = CategoryViewModel()
+    @Environment(\.modelContext) private var context
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         List(viewModel.categories, id: \.idCategory) { category in
@@ -44,9 +47,23 @@ struct CategoryListView: View {
         .navigationBarItems(
             trailing: HStack {
                 Button("Velg alle", action: viewModel.toggleAllSelections)
-                Button("Importer", action: viewModel.importSelectedCategories)
+                Button("Importer", action: importSelectedCategories)
             }
         )
+    }
+    func importSelectedCategories() {
+        for category in viewModel.categories {
+            if viewModel.selectedCategories.contains(category.strCategory) {
+                let newCategory = CategoryDbModel()
+                newCategory.oldID = category.idCategory
+                newCategory.title = category.strCategory
+                newCategory.descriptions = category.strCategoryDescription
+                newCategory.thumb = category.strCategoryThumb
+                
+                context.insert(newCategory)
+            }
+        }
+        presentationMode.wrappedValue.dismiss()
     }
 }
 

@@ -44,17 +44,12 @@ class AreaViewModel: ObservableObject {
     ]
     
     func flagURL(for area: Area) -> URL? {
-            guard let countryCode = countryNameToCode[area.strArea] else {
-                return nil
-            }
-            return URL(string: "https://flagsapi.com/\(countryCode)/flat/64.png")
+        guard let countryCode = countryNameToCode[area.strArea] else {
+            return nil
         }
-    
-    func loadSavedAreas() {
-        // Load areas from SwiftData and update `areas`
-        //areas = databaseManager.fetchAllAreas()
+        return URL(string: "https://flagsapi.com/\(countryCode)/flat/64.png")
     }
-
+    
     func loadAreasFromAPI() {
         apiService.fetchAreas { [weak self] result in
             DispatchQueue.main.async {
@@ -67,11 +62,11 @@ class AreaViewModel: ObservableObject {
             }
         }
     }
-
+    
     func isSelected(area: Area) -> Bool {
         selectedAreas.contains(area.strArea)
     }
-
+    
     func toggleSelection(area: Area) {
         if isSelected(area: area) {
             selectedAreas.remove(area.strArea)
@@ -79,18 +74,12 @@ class AreaViewModel: ObservableObject {
             selectedAreas.insert(area.strArea)
         }
     }
-
+    
     func toggleAllSelections() {
         if selectedAreas.count == areas.count {
             selectedAreas.removeAll()
         } else {
             selectedAreas = Set(areas.map { $0.strArea })
         }
-    }
-
-    func importSelectedAreas() {
-        // Placeholder for database import logic
-        // This function should handle saving the selectedAreas to your database
-        print("Selected areas to import: \(selectedAreas)")
     }
 }

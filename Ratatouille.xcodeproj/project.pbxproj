@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B93B33522B17652A008663D7 /* AreaDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93B33512B17652A008663D7 /* AreaDetailView.swift */; };
+		B93B33562B179796008663D7 /* CategoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93B33552B179796008663D7 /* CategoryDetailView.swift */; };
 		B9A066862B14F6EF0041365F /* RatatouilleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A066852B14F6EF0041365F /* RatatouilleApp.swift */; };
 		B9A0668C2B14F6F00041365F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9A0668B2B14F6F00041365F /* Assets.xcassets */; };
 		B9A0668F2B14F6F00041365F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9A0668E2B14F6F00041365F /* Preview Assets.xcassets */; };
@@ -34,6 +36,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B93B33512B17652A008663D7 /* AreaDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaDetailView.swift; sourceTree = "<group>"; };
+		B93B33552B179796008663D7 /* CategoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailView.swift; sourceTree = "<group>"; };
 		B9A066822B14F6EF0041365F /* Ratatouille.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ratatouille.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9A066852B14F6EF0041365F /* RatatouilleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatatouilleApp.swift; sourceTree = "<group>"; };
 		B9A0668B2B14F6F00041365F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -72,6 +76,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B93B33502B17646E008663D7 /* AreaViews */ = {
+			isa = PBXGroup;
+			children = (
+				B9BC917C2B154FC8008DC323 /* AreaListView.swift */,
+				B9BC917E2B1558A3008DC323 /* MyAreasView.swift */,
+				B93B33512B17652A008663D7 /* AreaDetailView.swift */,
+			);
+			path = AreaViews;
+			sourceTree = "<group>";
+		};
+		B93B33532B178D6C008663D7 /* CategoryViews */ = {
+			isa = PBXGroup;
+			children = (
+				B9BC91782B154E60008DC323 /* CategoryListView.swift */,
+				B9BC91802B1558EB008DC323 /* MyCategoriesView.swift */,
+				B93B33552B179796008663D7 /* CategoryDetailView.swift */,
+			);
+			path = CategoryViews;
+			sourceTree = "<group>";
+		};
+		B93B33542B178DA2008663D7 /* IngredientViews */ = {
+			isa = PBXGroup;
+			children = (
+				B9BC917A2B154F54008DC323 /* IngredientListView.swift */,
+				B9BC91822B155909008DC323 /* MyIngredientsView.swift */,
+			);
+			path = IngredientViews;
+			sourceTree = "<group>";
+		};
 		B9A066792B14F6EF0041365F = {
 			isa = PBXGroup;
 			children = (
@@ -127,13 +160,10 @@
 				B9BC91642B150410008DC323 /* MainView.swift */,
 				B9BC91662B1531E3008DC323 /* SearchView.swift */,
 				B9BC91682B1531F0008DC323 /* SettingsView.swift */,
-				B9BC91782B154E60008DC323 /* CategoryListView.swift */,
-				B9BC917A2B154F54008DC323 /* IngredientListView.swift */,
-				B9BC917C2B154FC8008DC323 /* AreaListView.swift */,
-				B9BC917E2B1558A3008DC323 /* MyAreasView.swift */,
-				B9BC91802B1558EB008DC323 /* MyCategoriesView.swift */,
-				B9BC91822B155909008DC323 /* MyIngredientsView.swift */,
 				B9BC91842B157488008DC323 /* SearchBar.swift */,
+				B93B33502B17646E008663D7 /* AreaViews */,
+				B93B33532B178D6C008663D7 /* CategoryViews */,
+				B93B33542B178DA2008663D7 /* IngredientViews */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -243,6 +273,7 @@
 				B9BC91692B1531F0008DC323 /* SettingsView.swift in Sources */,
 				B9BC918F2B1658E5008DC323 /* MealDbModel.swift in Sources */,
 				B9BC91672B1531E4008DC323 /* SearchView.swift in Sources */,
+				B93B33522B17652A008663D7 /* AreaDetailView.swift in Sources */,
 				B9BC918A2B1658B0008DC323 /* CategoryDbModel.swift in Sources */,
 				B9BC91852B157488008DC323 /* SearchBar.swift in Sources */,
 				B9BC917D2B154FC8008DC323 /* AreaListView.swift in Sources */,
@@ -259,6 +290,7 @@
 				B9BC91772B154E3E008DC323 /* IngredientViewModel.swift in Sources */,
 				B9A066862B14F6EF0041365F /* RatatouilleApp.swift in Sources */,
 				B9BC916F2B154DC5008DC323 /* Category.swift in Sources */,
+				B93B33562B179796008663D7 /* CategoryDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SettingsView: View {
     @State private var isDarkModeEnabled = false
+    @State private var path = ""
     
     var body: some View {
         NavigationView {

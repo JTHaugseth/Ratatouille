@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct AreaListView: View {
     @ObservedObject var viewModel = AreaViewModel()
+    @Environment(\.modelContext) private var context
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         List(viewModel.areas, id: \.strArea) { area in
@@ -45,9 +48,21 @@ struct AreaListView: View {
         .navigationBarItems(
             trailing: HStack {
                 Button("Velg alle", action: viewModel.toggleAllSelections)
-                Button("Importer", action: viewModel.importSelectedAreas)
+                Button("Importer", action: importSelectedAreas)
             }
         )
+    }
+    
+    func importSelectedAreas() {
+        for areaName in viewModel.selectedAreas {
+            let countryCode = viewModel.countryNameToCode[areaName] ?? ""
+            let newArea = AreaDbModel()
+            newArea.title = areaName
+            newArea.countrycode = countryCode
+            
+            context.insert(newArea)
+        }
+        presentationMode.wrappedValue.dismiss()
     }
 }
 
