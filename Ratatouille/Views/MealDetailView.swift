@@ -15,10 +15,10 @@ struct MealDetailView: View {
 
     var body: some View {
         ScrollView {
-            if isLoading {
-                ProgressView("Loading...")
-            } else if let mealDetail = mealDetail {
-                VStack(alignment: .leading, spacing: 10) {
+            VStack(alignment: .leading, spacing: 10) {
+                if isLoading {
+                    ProgressView("Loading...")
+                } else if let mealDetail = mealDetail {
                     AsyncImage(url: URL(string: mealDetail.strMealThumb)) { image in
                         image.resizable()
                     } placeholder: {
@@ -29,9 +29,22 @@ struct MealDetailView: View {
                     .cornerRadius(10)
                     .shadow(radius: 5)
 
-                    Text(mealDetail.strMeal)
-                        .font(.title)
-                        .fontWeight(.bold)
+                    HStack {
+                        Text(mealDetail.strMeal)
+                            .font(.title)
+                            .fontWeight(.bold)
+
+                        Spacer()
+
+                        // Save Button
+                        Button(action: { saveMealToDB(mealDetail) }) {
+                            Image(systemName: "square.and.arrow.down")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 24, height: 24)
+                                .foregroundColor(.blue)
+                        }
+                    }
 
                     if !mealDetail.strCategory.isEmpty && !mealDetail.strArea.isEmpty {
                         Text("\(mealDetail.strCategory) - \(mealDetail.strArea)")
@@ -56,11 +69,11 @@ struct MealDetailView: View {
                         .font(.headline)
                     Text(mealDetail.strInstructions)
                         .font(.body)
+                } else {
+                    Text("Meal details not available.")
                 }
-                .padding()
-            } else {
-                Text("Meal details not available.")
             }
+            .padding()
         }
         .onAppear {
             loadMealDetails()
@@ -80,6 +93,11 @@ struct MealDetailView: View {
                 }
             }
         }
+    }
+
+    private func saveMealToDB(_ meal: MealDetail) {
+        // Implement the logic to convert MealDetail to MealDbModel and save it to your database
+        print("Saving meal: \(meal.strMeal)")
     }
 
     private func ingredient(at index: Int, in meal: MealDetail) -> String? {
