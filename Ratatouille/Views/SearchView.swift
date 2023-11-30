@@ -197,22 +197,37 @@ struct SearchView: View {
         }
 
         // Placeholder for the meal list view
-        private func mealListView() -> some View {
-            VStack {
-                Text("Oppskrifter basert på \(selectedItemTitle)")
-                List(meals, id: \.idMeal) { meal in
-                    VStack(alignment: .leading) {
-                        Text(meal.strMeal)
-                        // ... [Meal Image Handling]
+    private func mealListView() -> some View {
+        VStack {
+            Text("Oppskrifter basert på \(selectedItemTitle)")
+            List(meals, id: \.idMeal) { meal in
+                HStack {
+                    // Meal image
+                    if let url = URL(string: meal.strMealThumb) {
+                        AsyncImage(url: url) { image in
+                            image.resizable()
+                        } placeholder: {
+                            Color.gray
+                        }
+                        .frame(width: 50, height: 50)
+                        .cornerRadius(10)
+                    } else {
+                        Color.gray
+                            .frame(width: 50, height: 50)
+                            .cornerRadius(10)
                     }
+
+                    // Meal name
+                    Text(meal.strMeal)
                 }
-                Button("Tilbake") {
-                    withAnimation {
-                        showDetails = false
-                    }
+            }
+            Button("Tilbake") {
+                withAnimation {
+                    showDetails = false
                 }
             }
         }
+    }
 
         // Helper function for button view
         private func buttonView(systemName: String, color: Color) -> some View {
