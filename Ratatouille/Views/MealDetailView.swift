@@ -5,11 +5,13 @@
 //  Created by Julian Haugseth on 30/11/2023.
 //
 import SwiftUI
+import SwiftData
 
 struct MealDetailView: View {
     let mealId: String
     @State private var mealDetail: MealDetail?
     @State private var isLoading = false
+    @Environment(\.modelContext) private var context
 
     private let apiService = ApiService()
 
@@ -96,7 +98,14 @@ struct MealDetailView: View {
     }
 
     private func saveMealToDB(_ meal: MealDetail) {
-        // Implement the logic to convert MealDetail to MealDbModel and save it to your database
+        let newMeal = MealDbModel()
+        newMeal.oldID = meal.idMeal
+        newMeal.title = meal.strMeal
+        newMeal.instructions = meal.strInstructions
+        newMeal.ingredients = meal.
+        newMeal.thumb = meal.strMealThumb
+        newMeal.youtube = meal.strYoutube ?? ""
+        
         print("Saving meal: \(meal.strMeal)")
     }
 
