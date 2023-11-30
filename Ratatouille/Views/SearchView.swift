@@ -201,24 +201,26 @@ struct SearchView: View {
         VStack {
             Text("Oppskrifter basert på \(selectedItemTitle)")
             List(meals, id: \.idMeal) { meal in
-                HStack {
-                    // Meal image
-                    if let url = URL(string: meal.strMealThumb) {
-                        AsyncImage(url: url) { image in
-                            image.resizable()
-                        } placeholder: {
-                            Color.gray
-                        }
-                        .frame(width: 50, height: 50)
-                        .cornerRadius(10)
-                    } else {
-                        Color.gray
+                NavigationLink(destination: MealDetailView(mealId: meal.idMeal)) {
+                    HStack {
+                        if let url = URL(string: meal.strMealThumb) {
+                            AsyncImage(url: url) { image in
+                                image.resizable()
+                            } placeholder: {
+                                Color.gray
+                            }
                             .frame(width: 50, height: 50)
                             .cornerRadius(10)
-                    }
+                        } else {
+                            Color.gray
+                                .frame(width: 50, height: 50)
+                                .cornerRadius(10)
+                        }
 
-                    // Meal name
-                    Text(meal.strMeal)
+                        // Meal name
+                        Text(meal.strMeal)
+
+                    }
                 }
             }
             Button("Tilbake") {
@@ -247,3 +249,7 @@ struct SearchView: View {
 #Preview {
     SearchView()
 }
+
+
+
+    

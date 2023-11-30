@@ -13,7 +13,7 @@ struct MainView: View {
             NavigationView {
                 VStack {
                     Spacer()
-                    Image(systemName: "book.closed.fill") // Ikon over teksten
+                    Image(systemName: "book.closed.fill")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 60, height: 60)
@@ -31,11 +31,13 @@ struct MainView: View {
                 Text("Mine oppskrifter")
             }
             
-            SearchView()
-                .tabItem {
-                    Image(systemName: "magnifyingglass")
-                    Text("Søk")
-                }
+            NavigationView {
+                SearchView()
+            }
+            .tabItem {
+                Image(systemName: "magnifyingglass")
+                Text("Søk")
+            }
             
             SettingsView()
                 .tabItem {

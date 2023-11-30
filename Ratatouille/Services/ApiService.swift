@@ -87,6 +87,38 @@ class ApiService {
             }
         }.resume()
     }
+    
+    func fetchMealDetail(mealId: String, completion: @escaping (Result<MealDetail, Error>) -> Void) {
+            let urlString = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=\(mealId)"
+            guard let url = URL(string: urlString) else {
+                completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
+                return
+            }
+            
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                guard let data = data else {
+                    completion(.failure(NSError(domain: "", code: -1, userInfo: nil)))
+                    return
+                }
+                
+                do {
+                    let decoder = JSONDecoder()
+                    let response = try decoder.decode(MealDetailResponse.self, from: data)
+                    if let mealDetail = response.meals.first {
+                        completion(.success(mealDetail))
+                    } else {
+                        completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Meal not found"])))
+                    }
+                } catch {
+                    completion(.failure(error))
+                }
+            }.resume()
+        }
 }
 
 struct ListResponse<T: Decodable>: Decodable {
