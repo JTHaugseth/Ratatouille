@@ -22,6 +22,9 @@ struct SearchView: View {
     @State private var selectedButtonType: SelectedButtonType? = nil
     @State private var selectedItemTitle: String = ""
     @State private var showDetails = false
+    @State private var meals: [Meal] = []
+
+    private let apiService = ApiService()
 
     var body: some View {
         VStack {
@@ -36,7 +39,7 @@ struct SearchView: View {
                     case .ingredient:
                         ingredientList()
                     default:
-                        Text("Søk etter matoppskrifter")
+                        Text("Søk etter Oppskrifter")
                     }
                 }
 
@@ -153,41 +156,79 @@ struct SearchView: View {
     }
 
     // Function to handle item selection
-    private func selectItem(_ title: String) {
-        selectedItemTitle = title
-        withAnimation {
-            showDetails = true
+        private func selectItem(_ title: String) {
+            selectedItemTitle = title
+            withAnimation {
+                showDetails = true
+            }
+            fetchMealsForSelectedItem(title)
         }
-    }
 
-    // Placeholder for the meal list view
-    private func mealListView() -> some View {
-        VStack {
-            Text("Meals based on \(selectedItemTitle)")
-            // Display meals based on selectedItemTitle
-            // Implement API call logic here
-            Button("Back") {
-                withAnimation {
-                    showDetails = false
+        // Fetching meals based on the selected item
+        private func fetchMealsForSelectedItem(_ title: String) {
+            switch selectedButtonType {
+            case .area:
+                apiService.fetchMealsByArea(area: title) { result in
+                    handleFetchResult(result)
+                }
+            case .category:
+                apiService.fetchMealsByCategory(category: title) { result in
+                    handleFetchResult(result)
+                }
+            case .ingredient:
+                apiService.fetchMealsByIngredient(ingredient: title) { result in
+                    handleFetchResult(result)
+                }
+            default:
+                break
+            }
+        }
+
+        // Handle the result of the fetch
+        private func handleFetchResult(_ result: Result<[Meal], Error>) {
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let fetchedMeals):
+                    meals = fetchedMeals
+                case .failure(let error):
+                    print("Error fetching meals: \(error)")
                 }
             }
         }
+
+        // Placeholder for the meal list view
+        private func mealListView() -> some View {
+            VStack {
+                Text("Oppskrifter basert på \(selectedItemTitle)")
+                List(meals, id: \.idMeal) { meal in
+                    VStack(alignment: .leading) {
+                        Text(meal.strMeal)
+                        // ... [Meal Image Handling]
+                    }
+                }
+                Button("Tilbake") {
+                    withAnimation {
+                        showDetails = false
+                    }
+                }
+            }
+        }
+
+        // Helper function for button view
+        private func buttonView(systemName: String, color: Color) -> some View {
+            Image(systemName: systemName)
+                .foregroundColor(.white)
+                .padding()
+                .background(color)
+                .clipShape(Circle())
+                .shadow(radius: 5)
+        }
+        
+        enum SelectedButtonType {
+            case area, category, ingredient, search
+        }
     }
 
-    // Helper function for button view
-    private func buttonView(systemName: String, color: Color) -> some View {
-        Image(systemName: systemName)
-            .foregroundColor(.white)
-            .padding()
-            .background(color)
-            .clipShape(Circle())
-            .shadow(radius: 5)
-    }
-    
-    enum SelectedButtonType {
-        case area, category, ingredient, search
-    }
-}
 #Preview {
     SearchView()
 }
