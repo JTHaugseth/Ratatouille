@@ -20,6 +20,9 @@ struct ArchiveView: View {
     @Query(filter: #Predicate<IngredientDbModel>{$0.archived == true},
            sort: \IngredientDbModel.title, order: .forward, animation: .default) private var savedIngredients: [IngredientDbModel]
     
+    @Query(filter: #Predicate<MealDbModel>{$0.archived == true},
+           sort: \MealDbModel.title, order: .forward, animation: .default) private var savedMeals: [MealDbModel]
+    
     var body: some View {
             List {
                 if savedAreas.isEmpty {
@@ -112,7 +115,35 @@ struct ArchiveView: View {
                     }
                 }
                 
-                // Add a similar section for MATOPPSKRIFTER when you have MealDbModel query ready
+                if savedMeals.isEmpty {
+                    Section(header: Text("OPPSKRIFTER")) {
+                        Text("Ingen arkiverte oppskrifter")
+                    }
+                } else {
+                    Section(header: Text("OPPSKRIFTER")) {
+                        ForEach(savedMeals, id: \.self) { meal in
+                            VStack(alignment: .leading) {
+                                Text(meal.title)
+                                Text("Arkivert: \(meal.update.formatted(date: .abbreviated, time: .standard))")
+                            }
+                            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                                Button(role: .destructive) {
+                                    context.delete(meal)
+                                } label: {
+                                    Label("Delete", systemImage: "trash.fill")
+                                }
+                                Button {
+                                    meal.archived = false
+                                    meal.update = Date.now
+                                    try? context.save()
+                                } label: {
+                                    Label("Unarchive", systemImage: "tray.and.arrow.up.fill")
+                                }
+                                .tint(.blue)
+                            }
+                        }
+                    }
+                }
                 
             }
             .listStyle(GroupedListStyle()) // This should remove the top padding.

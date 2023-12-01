@@ -46,6 +46,13 @@ struct MainView: View {
                                     .cornerRadius(10)
                                 }
                                 Text(meal.title)
+                                
+                                Spacer()
+                                
+                                if meal.favorite {
+                                    Image(systemName: "star.fill")
+                                        .foregroundColor(.yellow)
+                                }
                             }
                         }
                         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
@@ -91,16 +98,19 @@ struct MainView: View {
     
     private func archiveMeal(_ meal: MealDbModel) {
         meal.archived = true
+        meal.update = Date.now
         try? context.save()
         print("Archiving meal: \(meal.title)")
     }
 
     private func favoriteMeal(_ meal: MealDbModel) {
-        meal.favorite = true
+        meal.favorite.toggle()
+        meal.update = Date.now
         try? context.save()
         print("Favoriting meal: \(meal.title)")
     }
 }
+
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()
