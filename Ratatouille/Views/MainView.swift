@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct MainView: View {
+    @Environment(\.modelContext) private var context
     
     @Query(filter: #Predicate<MealDbModel>{$0.archived == false},
            sort: \MealDbModel.title, order: .forward, animation: .default) private var savedMeals: [MealDbModel]
@@ -47,6 +48,22 @@ struct MainView: View {
                                 Text(meal.title)
                             }
                         }
+                        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                            Button {
+                                archiveMeal(meal)
+                            } label: {
+                                Label("Archive", systemImage: "archivebox")
+                            }
+                            .tint(.blue)
+                        }
+                        .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                            Button {
+                                favoriteMeal(meal)
+                            } label: {
+                                Label("Favorite", systemImage: "star.fill")
+                            }
+                            .tint(.yellow)
+                        }
                     }
                     .navigationBarTitle("Mine oppskrifter")
                 }
@@ -71,8 +88,19 @@ struct MainView: View {
                 }
         }
     }
-}
+    
+    private func archiveMeal(_ meal: MealDbModel) {
+        meal.archived = true
+        try? context.save()
+        print("Archiving meal: \(meal.title)")
+    }
 
+    private func favoriteMeal(_ meal: MealDbModel) {
+        meal.favorite = true
+        try? context.save()
+        print("Favoriting meal: \(meal.title)")
+    }
+}
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()
