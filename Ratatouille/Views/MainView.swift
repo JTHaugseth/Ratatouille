@@ -6,25 +6,50 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct MainView: View {
+    
+    @Query(filter: #Predicate<MealDbModel>{$0.archived == false},
+           sort: \MealDbModel.title, order: .forward, animation: .default) private var savedMeals: [MealDbModel]
+    
     var body: some View {
         TabView {
             NavigationView {
-                VStack {
-                    Spacer()
-                    Image(systemName: "book.closed.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 60, height: 60)
-                        .foregroundColor(.gray)
-                    Text("Ingen matoppskrifter")
-                        .font(.title)
-                        .foregroundColor(.gray)
-                    Spacer()
+                if savedMeals.isEmpty {
+                    VStack {
+                        Spacer()
+                        Image(systemName: "book.closed.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 60, height: 60)
+                            .foregroundColor(.gray)
+                        Text("Ingen matoppskrifter")
+                            .font(.title)
+                            .foregroundColor(.gray)
+                        Spacer()
+                    }
+                    .navigationTitle("RATATOUILLE")
+                    .navigationBarTitleDisplayMode(.inline)
+                } else {
+                    List(savedMeals, id: \.id) { meal in
+                        NavigationLink(destination: SavedMealDetailView(mealDbModel: meal)) {
+                            HStack {
+                                if let url = URL(string: meal.thumb) {
+                                    AsyncImage(url: url) { image in
+                                        image.resizable()
+                                    } placeholder: {
+                                        Color.gray
+                                    }
+                                    .frame(width: 50, height: 50)
+                                    .cornerRadius(10)
+                                }
+                                Text(meal.title)
+                            }
+                        }
+                    }
+                    .navigationBarTitle("Mine oppskrifter")
                 }
-                .navigationTitle("RATATOUILLE")
-                .navigationBarTitleDisplayMode(.inline)
             }
             .tabItem {
                 Image(systemName: "book.fill")

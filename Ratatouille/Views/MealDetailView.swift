@@ -102,11 +102,25 @@ struct MealDetailView: View {
         newMeal.oldID = meal.idMeal
         newMeal.title = meal.strMeal
         newMeal.instructions = meal.strInstructions
-        newMeal.ingredients = meal.
         newMeal.thumb = meal.strMealThumb
         newMeal.youtube = meal.strYoutube ?? ""
         
-        print("Saving meal: \(meal.strMeal)")
+        // Concatenate ingredients and measures
+        let ingredients = (1...20).compactMap { index -> String? in
+            guard let ingredient = ingredient(at: index, in: meal),
+                  let measure = measure(at: index, in: meal),
+                  !ingredient.isEmpty
+            else {
+                return nil
+            }
+            return "\(ingredient): \(measure)"
+        }.joined(separator: ", ")
+        
+        newMeal.ingredients = ingredients
+        context.insert(newMeal)
+        // Save the new meal to the database
+        print("Saving meal: \(newMeal.title)")
+        
     }
 
     private func ingredient(at index: Int, in meal: MealDetail) -> String? {
@@ -116,6 +130,12 @@ struct MealDetailView: View {
             meal.strIngredient11, meal.strIngredient12, meal.strIngredient13, meal.strIngredient14, meal.strIngredient15,
             meal.strIngredient16, meal.strIngredient17, meal.strIngredient18, meal.strIngredient19, meal.strIngredient20
         ]
+        
+        // Check if the index is within the bounds of the array
+        guard index >= 0 && index < ingredientProperties.count else {
+            return nil
+        }
+
         return ingredientProperties[index]?.isEmpty == false ? ingredientProperties[index] : nil
     }
 
