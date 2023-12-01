@@ -9,21 +9,21 @@ import SwiftUI
 import SwiftData
 
 struct SearchView: View {
+    // Existing @Query properties
+    @Query(filter: #Predicate<AreaDbModel>{$0.archived == false}, sort: \AreaDbModel.title, order: .forward, animation: .default) private var savedAreas: [AreaDbModel]
+    @Query(filter: #Predicate<CategoryDbModel>{$0.archived == false}, sort: \CategoryDbModel.title, order: .forward, animation: .default) private var savedCategories: [CategoryDbModel]
+    @Query(filter: #Predicate<IngredientDbModel>{$0.archived == false}, sort: \IngredientDbModel.title, order: .forward, animation: .default) private var savedIngredients: [IngredientDbModel]
     
-    @Query(filter: #Predicate<AreaDbModel>{$0.archived == false},
-           sort: \AreaDbModel.title, order: .forward, animation: .default) private var savedAreas: [AreaDbModel]
-    
-    @Query(filter: #Predicate<CategoryDbModel>{$0.archived == false},
-           sort: \CategoryDbModel.title, order: .forward, animation: .default) private var savedCategories: [CategoryDbModel]
-    
-    @Query(filter: #Predicate<IngredientDbModel>{$0.archived == false},
-           sort: \IngredientDbModel.title, order: .forward, animation: .default) private var savedIngredients: [IngredientDbModel]
-    
+    // Existing @State properties
     @State private var selectedButtonType: SelectedButtonType? = nil
     @State private var selectedItemTitle: String = ""
     @State private var showDetails = false
     @State private var meals: [Meal] = []
 
+    // New @State property for search query
+    @State private var searchQuery: String = ""
+
+    // ApiService
     private let apiService = ApiService()
 
     var body: some View {
@@ -38,6 +38,8 @@ struct SearchView: View {
                         categoryList()
                     case .ingredient:
                         ingredientList()
+                    case .search:
+                        searchField()
                     default:
                         Text("Søk etter Oppskrifter")
                     }
@@ -52,46 +54,7 @@ struct SearchView: View {
             .animation(.default, value: showDetails)
 
             // Bottom bar with buttons
-            HStack {
-                Spacer()
-
-                Button(action: {
-                    selectedButtonType = .area
-                    showDetails = false
-                }) {
-                    buttonView(systemName: "globe", color: .blue)
-                }
-
-                Spacer()
-
-                Button(action: {
-                    selectedButtonType = .category
-                    showDetails = false
-                }) {
-                    buttonView(systemName: "list.bullet", color: .green)
-                }
-
-                Spacer()
-
-                Button(action: {
-                    selectedButtonType = .ingredient
-                    showDetails = false
-                }) {
-                    buttonView(systemName: "leaf", color: .orange)
-                }
-
-                Spacer()
-
-                Button(action: {
-                    selectedButtonType = .search
-                    showDetails = false
-                }) {
-                    buttonView(systemName: "magnifyingglass", color: .red)
-                }
-
-                Spacer()
-            }
-            .padding(.bottom)
+            bottomBar()
         }
         .animation(.default, value: selectedButtonType)
     }
@@ -154,6 +117,69 @@ struct SearchView: View {
         }
         .transition(.move(edge: .leading))
     }
+    
+    private func searchField() -> some View {
+        HStack {
+            TextField("Søk etter oppskrifter...", text: $searchQuery)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+
+            Button("Søk") {
+                withAnimation {
+                    showDetails = true
+                    fetchMealsForSearchQuery(searchQuery)
+                }
+            }
+            .padding(EdgeInsets(top: 6, leading: 15, bottom: 6, trailing: 15)) // Adjust the padding here
+            .background(Color.blue)
+            .foregroundColor(.white)
+            .cornerRadius(8) // Slightly smaller corner radius
+            .font(.system(size: 20)) // Optional: Adjust font size if needed
+        }
+    }
+
+        private func bottomBar() -> some View {
+            HStack {
+                Spacer()
+
+                Button(action: {
+                    selectedButtonType = .area
+                    showDetails = false
+                }) {
+                    buttonView(systemName: "globe", color: .blue)
+                }
+
+                Spacer()
+
+                Button(action: {
+                    selectedButtonType = .category
+                    showDetails = false
+                }) {
+                    buttonView(systemName: "list.bullet", color: .green)
+                }
+
+                Spacer()
+
+                Button(action: {
+                    selectedButtonType = .ingredient
+                    showDetails = false
+                }) {
+                    buttonView(systemName: "leaf", color: .orange)
+                }
+
+                Spacer()
+
+                Button(action: {
+                    selectedButtonType = .search
+                    showDetails = false
+                }) {
+                    buttonView(systemName: "magnifyingglass", color: .red)
+                }
+
+                Spacer()
+            }
+            .padding(.bottom)
+        }
 
     // Function to handle item selection
         private func selectItem(_ title: String) {
@@ -181,6 +207,12 @@ struct SearchView: View {
                 }
             default:
                 break
+            }
+        }
+    
+        private func fetchMealsForSearchQuery(_ query: String) {
+            apiService.fetchMealsBySearch(searchString: query) { result in
+                handleFetchResult(result)
             }
         }
 

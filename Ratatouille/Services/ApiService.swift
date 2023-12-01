@@ -8,6 +8,12 @@
 import Foundation
 
 class ApiService {
+    func fetchMealsBySearch(searchString: String, completion: @escaping (Result<[Meal], Error>) -> Void) {
+        let encodedSearchString = searchString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        let urlString = "https://www.themealdb.com/api/json/v1/1/search.php?s=\(encodedSearchString)"
+        fetchItems(urlString: urlString, completion: completion)
+    }
+    
     func fetchMealsByArea(area: String, completion: @escaping (Result<[Meal], Error>) -> Void) {
             let urlString = "https://www.themealdb.com/api/json/v1/1/filter.php?a=\(area)"
             fetchItems(urlString: urlString, completion: completion)
