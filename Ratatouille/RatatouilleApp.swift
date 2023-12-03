@@ -11,7 +11,7 @@ import SwiftData
 @main
 struct RatatouilleApp: App {
     @StateObject var darkModeManager = DarkModeManager()
-
+    
     var body: some Scene {
         WindowGroup {
             SplashScreenView()

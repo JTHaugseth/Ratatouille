@@ -10,7 +10,7 @@ import SwiftUI
 // SettingsView with Dark Mode Toggle
 struct SettingsView: View {
     @EnvironmentObject var darkModeManager: DarkModeManager
-
+    
     var body: some View {
         NavigationView {
             List {

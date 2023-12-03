@@ -12,7 +12,7 @@ struct AreaListView: View {
     @ObservedObject var viewModel = AreaViewModel()
     @Environment(\.modelContext) private var context
     @Environment(\.presentationMode) var presentationMode
-
+    
     var body: some View {
         List(viewModel.areas, id: \.strArea) { area in
             HStack {
@@ -30,7 +30,7 @@ struct AreaListView: View {
                         .frame(width: 50, height: 50)
                         .cornerRadius(25)
                 }
-
+                
                 Text(area.strArea)
                 Spacer()
                 Image(systemName: viewModel.isSelected(area: area) ? "checkmark.square" : "square")

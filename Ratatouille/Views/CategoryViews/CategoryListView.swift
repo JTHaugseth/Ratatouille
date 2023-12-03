@@ -29,7 +29,7 @@ struct CategoryListView: View {
                         .frame(width: 50, height: 50)
                         .cornerRadius(25)
                 }
-
+                
                 Text(category.strCategory)
                 Spacer()
                 Image(systemName: viewModel.isSelected(category: category) ? "checkmark.square" : "square")

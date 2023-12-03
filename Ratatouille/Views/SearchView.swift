@@ -19,13 +19,13 @@ struct SearchView: View {
     @State private var selectedItemTitle: String = ""
     @State private var showDetails = false
     @State private var meals: [Meal] = []
-
+    
     // New @State property for search query
     @State private var searchQuery: String = ""
-
+    
     // ApiService
     private let apiService = ApiService()
-
+    
     var body: some View {
         VStack {
             HStack {
@@ -44,7 +44,7 @@ struct SearchView: View {
                         Text("Søk etter Oppskrifter")
                     }
                 }
-
+                
                 // Details View
                 if showDetails {
                     mealListView()
@@ -52,13 +52,13 @@ struct SearchView: View {
                 }
             }
             .animation(.default, value: showDetails)
-
+            
             // Bottom bar with buttons
             bottomBar()
         }
         .animation(.default, value: selectedButtonType)
     }
-
+    
     // Separate list functions for each type
     private func areaList() -> some View {
         List(savedAreas, id: \.self) { area in
@@ -76,14 +76,14 @@ struct SearchView: View {
                         Color.gray
                             .frame(width: 50, height: 50)
                     }
-
+                    
                     Text(area.title)
                 }
             }
         }
         .transition(.move(edge: .leading))
     }
-
+    
     private func categoryList() -> some View {
         List(savedCategories, id: \.self) { category in
             Button(action: { selectItem(category.title) }) {
@@ -101,14 +101,14 @@ struct SearchView: View {
                             .frame(width: 50, height: 50)
                             .cornerRadius(25)
                     }
-
+                    
                     Text(category.title)
                 }
             }
         }
         .transition(.move(edge: .leading))
     }
-
+    
     private func ingredientList() -> some View {
         List(savedIngredients, id: \.self) { ingredient in
             Button(action: { selectItem(ingredient.title) }) {
@@ -123,7 +123,7 @@ struct SearchView: View {
             TextField("Søk etter oppskrifter...", text: $searchQuery)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
-
+            
             Button("Søk") {
                 withAnimation {
                     showDetails = true
@@ -137,98 +137,98 @@ struct SearchView: View {
             .font(.system(size: 20)) // Optional: Adjust font size if needed
         }
     }
-
-        private func bottomBar() -> some View {
-            HStack {
-                Spacer()
-
-                Button(action: {
-                    selectedButtonType = .area
-                    showDetails = false
-                }) {
-                    buttonView(systemName: "globe", color: .blue)
-                }
-
-                Spacer()
-
-                Button(action: {
-                    selectedButtonType = .category
-                    showDetails = false
-                }) {
-                    buttonView(systemName: "list.bullet", color: .green)
-                }
-
-                Spacer()
-
-                Button(action: {
-                    selectedButtonType = .ingredient
-                    showDetails = false
-                }) {
-                    buttonView(systemName: "leaf", color: .orange)
-                }
-
-                Spacer()
-
-                Button(action: {
-                    selectedButtonType = .search
-                    showDetails = false
-                }) {
-                    buttonView(systemName: "magnifyingglass", color: .red)
-                }
-
-                Spacer()
-            }
-            .padding(.bottom)
-        }
-
-    // Function to handle item selection
-        private func selectItem(_ title: String) {
-            selectedItemTitle = title
-            withAnimation {
-                showDetails = true
-            }
-            fetchMealsForSelectedItem(title)
-        }
-
-        // Fetching meals based on the selected item
-        private func fetchMealsForSelectedItem(_ title: String) {
-            switch selectedButtonType {
-            case .area:
-                apiService.fetchMealsByArea(area: title) { result in
-                    handleFetchResult(result)
-                }
-            case .category:
-                apiService.fetchMealsByCategory(category: title) { result in
-                    handleFetchResult(result)
-                }
-            case .ingredient:
-                apiService.fetchMealsByIngredient(ingredient: title) { result in
-                    handleFetchResult(result)
-                }
-            default:
-                break
-            }
-        }
     
-        private func fetchMealsForSearchQuery(_ query: String) {
-            apiService.fetchMealsBySearch(searchString: query) { result in
+    private func bottomBar() -> some View {
+        HStack {
+            Spacer()
+            
+            Button(action: {
+                selectedButtonType = .area
+                showDetails = false
+            }) {
+                buttonView(systemName: "globe", color: .blue)
+            }
+            
+            Spacer()
+            
+            Button(action: {
+                selectedButtonType = .category
+                showDetails = false
+            }) {
+                buttonView(systemName: "list.bullet", color: .green)
+            }
+            
+            Spacer()
+            
+            Button(action: {
+                selectedButtonType = .ingredient
+                showDetails = false
+            }) {
+                buttonView(systemName: "leaf", color: .orange)
+            }
+            
+            Spacer()
+            
+            Button(action: {
+                selectedButtonType = .search
+                showDetails = false
+            }) {
+                buttonView(systemName: "magnifyingglass", color: .red)
+            }
+            
+            Spacer()
+        }
+        .padding(.bottom)
+    }
+    
+    // Function to handle item selection
+    private func selectItem(_ title: String) {
+        selectedItemTitle = title
+        withAnimation {
+            showDetails = true
+        }
+        fetchMealsForSelectedItem(title)
+    }
+    
+    // Fetching meals based on the selected item
+    private func fetchMealsForSelectedItem(_ title: String) {
+        switch selectedButtonType {
+        case .area:
+            apiService.fetchMealsByArea(area: title) { result in
                 handleFetchResult(result)
             }
+        case .category:
+            apiService.fetchMealsByCategory(category: title) { result in
+                handleFetchResult(result)
+            }
+        case .ingredient:
+            apiService.fetchMealsByIngredient(ingredient: title) { result in
+                handleFetchResult(result)
+            }
+        default:
+            break
         }
-
-        // Handle the result of the fetch
-        private func handleFetchResult(_ result: Result<[Meal], Error>) {
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let fetchedMeals):
-                    meals = fetchedMeals
-                case .failure(let error):
-                    print("Error fetching meals: \(error)")
-                }
+    }
+    
+    private func fetchMealsForSearchQuery(_ query: String) {
+        apiService.fetchMealsBySearch(searchString: query) { result in
+            handleFetchResult(result)
+        }
+    }
+    
+    // Handle the result of the fetch
+    private func handleFetchResult(_ result: Result<[Meal], Error>) {
+        DispatchQueue.main.async {
+            switch result {
+            case .success(let fetchedMeals):
+                meals = fetchedMeals
+            case .failure(let error):
+                print("Error fetching meals: \(error)")
             }
         }
-
-        // Placeholder for the meal list view
+    }
+    
+    // Placeholder for the meal list view
     private func mealListView() -> some View {
         VStack {
             Text("Oppskrifter basert på \(selectedItemTitle)")
@@ -248,10 +248,10 @@ struct SearchView: View {
                                 .frame(width: 50, height: 50)
                                 .cornerRadius(10)
                         }
-
+                        
                         // Meal name
                         Text(meal.strMeal)
-
+                        
                     }
                 }
             }
@@ -262,21 +262,21 @@ struct SearchView: View {
             }
         }
     }
-
-        // Helper function for button view
-        private func buttonView(systemName: String, color: Color) -> some View {
-            Image(systemName: systemName)
-                .foregroundColor(.white)
-                .padding()
-                .background(color)
-                .clipShape(Circle())
-                .shadow(radius: 5)
-        }
-        
-        enum SelectedButtonType {
-            case area, category, ingredient, search
-        }
+    
+    // Helper function for button view
+    private func buttonView(systemName: String, color: Color) -> some View {
+        Image(systemName: systemName)
+            .foregroundColor(.white)
+            .padding()
+            .background(color)
+            .clipShape(Circle())
+            .shadow(radius: 5)
     }
+    
+    enum SelectedButtonType {
+        case area, category, ingredient, search
+    }
+}
 
 #Preview {
     SearchView()
@@ -284,4 +284,4 @@ struct SearchView: View {
 
 
 
-    
+

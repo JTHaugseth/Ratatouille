@@ -12,16 +12,35 @@ struct CategoryDetailView: View {
     @Binding var category: CategoryDbModel
     @Environment(\.modelContext) private var context
     @Environment(\.presentationMode) var presentationMode
-
+    
     @State private var editedTitle: String = ""
     @State private var editedDescription: String = ""
     @State private var editedThumbURL: String = ""
-
+    
     var body: some View {
         Form {
-            TextField("Title", text: $editedTitle)
-            TextField("Description", text: $editedDescription)
-            TextField("Thumbnail URL", text: $editedThumbURL)
+            Section {
+                VStack(alignment: .leading) {
+                    Text("Kategori Navn").font(.caption).foregroundColor(.secondary)
+                    TextField("Title", text: $editedTitle)
+                }
+                
+                VStack(alignment: .leading) {
+                    Text("Innhold").font(.caption).foregroundColor(.secondary)
+                    TextField("Description", text: $editedDescription)
+                }
+                
+                VStack(alignment: .leading) {
+                    Text("Bilde URL").font(.caption).foregroundColor(.secondary)
+                    TextField("Thumbnail URL", text: $editedThumbURL)
+                }
+            }
+            Section
+            {
+                Text("Opprettet: \(category.create.formatted(date: .abbreviated, time: .standard))")
+                Text("Sist endret: \(category.update.formatted(date: .abbreviated, time: .standard))")
+            }
+            .foregroundStyle(.secondary)
         }
         .onAppear {
             editedTitle = category.title
@@ -39,7 +58,7 @@ struct CategoryDetailView: View {
             }
         )
     }
-
+    
     private func updateCategory(_ category: CategoryDbModel) {
         category.title = editedTitle
         category.descriptions = editedDescription
@@ -47,16 +66,16 @@ struct CategoryDetailView: View {
         category.update = Date.now
         
         try? context.save()
-
+        
         presentationMode.wrappedValue.dismiss()
     }
-
+    
     private func archiveCategory(_ category: CategoryDbModel) {
         category.archived = true
         category.update = Date.now
         
         try? context.save()
-
+        
         presentationMode.wrappedValue.dismiss()
     }
 }

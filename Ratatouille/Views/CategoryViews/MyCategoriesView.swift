@@ -13,7 +13,7 @@ struct MyCategoriesView: View {
     
     @Query(filter: #Predicate<CategoryDbModel>{$0.archived == false},
            sort: \CategoryDbModel.title, order: .forward, animation: .default) private var savedCategories: [CategoryDbModel]
-
+    
     var body: some View {
         VStack {
             List(savedCategories) { category in
@@ -32,7 +32,7 @@ struct MyCategoriesView: View {
                                 .frame(width: 50, height: 50)
                                 .cornerRadius(25)
                         }
-
+                        
                         Text(category.title)
                     }
                 }

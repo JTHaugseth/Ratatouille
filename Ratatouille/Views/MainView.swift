@@ -105,7 +105,7 @@ struct MainView: View {
         try? context.save()
         print("Archiving meal: \(meal.title)")
     }
-
+    
     private func favoriteMeal(_ meal: MealDbModel) {
         meal.favorite.toggle()
         meal.update = Date.now

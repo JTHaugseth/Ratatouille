@@ -11,7 +11,7 @@ class IngredientViewModel: ObservableObject {
     @Published var ingredients: [Ingredient] = []
     @Published var selectedIngredients = Set<String>()
     private let apiService = ApiService()
-
+    
     func loadIngredientsFromAPI() {
         apiService.fetchIngredients { [weak self] result in
             DispatchQueue.main.async {
@@ -24,11 +24,11 @@ class IngredientViewModel: ObservableObject {
             }
         }
     }
-
+    
     func isSelected(ingredient: Ingredient) -> Bool {
         selectedIngredients.contains(ingredient.idIngredient)
     }
-
+    
     func toggleSelection(ingredient: Ingredient) {
         if isSelected(ingredient: ingredient) {
             selectedIngredients.remove(ingredient.idIngredient)
@@ -36,7 +36,7 @@ class IngredientViewModel: ObservableObject {
             selectedIngredients.insert(ingredient.idIngredient)
         }
     }
-
+    
     func toggleAllSelections() {
         if selectedIngredients.count == ingredients.count {
             selectedIngredients.removeAll()
@@ -44,7 +44,7 @@ class IngredientViewModel: ObservableObject {
             selectedIngredients = Set(ingredients.map { $0.idIngredient })
         }
     }
-
+    
     func filteredIngredients(_ searchText: String) -> [Ingredient] {
         if searchText.isEmpty {
             return ingredients

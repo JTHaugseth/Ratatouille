@@ -13,7 +13,7 @@ struct MyIngredientsView: View {
     
     @Query(filter: #Predicate<IngredientDbModel>{$0.archived == false},
            sort: \IngredientDbModel.title, order: .forward, animation: .default) private var savedIngredients: [IngredientDbModel]
-
+    
     var body: some View {
         VStack {
             List(savedIngredients) { ingredient in

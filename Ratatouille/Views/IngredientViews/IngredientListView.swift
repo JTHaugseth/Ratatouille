@@ -13,7 +13,7 @@ struct IngredientListView: View {
     @Environment(\.modelContext) private var context
     @Environment(\.presentationMode) var presentationMode
     @State private var searchText = ""
-
+    
     var body: some View {
         VStack {
             SearchBar(text: $searchText, placeholder: "Søk ingredienser")

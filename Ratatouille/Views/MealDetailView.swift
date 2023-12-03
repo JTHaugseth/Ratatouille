@@ -12,9 +12,9 @@ struct MealDetailView: View {
     @State private var mealDetail: MealDetail?
     @State private var isLoading = false
     @Environment(\.modelContext) private var context
-
+    
     private let apiService = ApiService()
-
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 10) {
@@ -30,14 +30,14 @@ struct MealDetailView: View {
                     .frame(height: 300)
                     .cornerRadius(10)
                     .shadow(radius: 5)
-
+                    
                     HStack {
                         Text(mealDetail.strMeal)
                             .font(.title)
                             .fontWeight(.bold)
-
+                        
                         Spacer()
-
+                        
                         // Save Button
                         Button(action: { saveMealToDB(mealDetail) }) {
                             Image(systemName: "square.and.arrow.down")
@@ -47,15 +47,15 @@ struct MealDetailView: View {
                                 .foregroundColor(.blue)
                         }
                     }
-
+                    
                     if !mealDetail.strCategory.isEmpty && !mealDetail.strArea.isEmpty {
                         Text("\(mealDetail.strCategory) - \(mealDetail.strArea)")
                             .font(.subheadline)
                             .foregroundColor(.secondary)
                     }
-
+                    
                     Divider()
-
+                    
                     Text("Ingredients")
                         .font(.headline)
                     ForEach(0..<20, id: \.self) { index in
@@ -64,9 +64,9 @@ struct MealDetailView: View {
                             Text("• \(ingredient) - \(measure)")
                         }
                     }
-
+                    
                     Divider()
-
+                    
                     Text("Instructions")
                         .font(.headline)
                     Text(mealDetail.strInstructions)
@@ -81,7 +81,7 @@ struct MealDetailView: View {
             loadMealDetails()
         }
     }
-
+    
     private func loadMealDetails() {
         isLoading = true
         apiService.fetchMealDetail(mealId: mealId) { result in
@@ -96,7 +96,7 @@ struct MealDetailView: View {
             }
         }
     }
-
+    
     private func saveMealToDB(_ meal: MealDetail) {
         let newMeal = MealDbModel()
         newMeal.oldID = meal.idMeal
@@ -122,7 +122,7 @@ struct MealDetailView: View {
         print("Saving meal: \(newMeal.title)")
         
     }
-
+    
     private func ingredient(at index: Int, in meal: MealDetail) -> String? {
         let ingredientProperties = [
             meal.strIngredient1, meal.strIngredient2, meal.strIngredient3, meal.strIngredient4, meal.strIngredient5,
@@ -135,10 +135,10 @@ struct MealDetailView: View {
         guard index >= 0 && index < ingredientProperties.count else {
             return nil
         }
-
+        
         return ingredientProperties[index]?.isEmpty == false ? ingredientProperties[index] : nil
     }
-
+    
     private func measure(at index: Int, in meal: MealDetail) -> String? {
         let measureProperties = [
             meal.strMeasure1, meal.strMeasure2, meal.strMeasure3, meal.strMeasure4, meal.strMeasure5,

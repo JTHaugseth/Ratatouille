@@ -13,7 +13,7 @@ struct MyAreasView: View {
     
     @Query(filter: #Predicate<AreaDbModel>{$0.archived == false},
            sort: \AreaDbModel.title, order: .forward, animation: .default) private var savedAreas: [AreaDbModel]
-
+    
     var body: some View {
         VStack {
             List(savedAreas) { area in
@@ -31,7 +31,7 @@ struct MyAreasView: View {
                             Color.gray
                                 .frame(width: 50, height: 50)
                         }
-
+                        
                         Text(area.title)
                     }
                 }
