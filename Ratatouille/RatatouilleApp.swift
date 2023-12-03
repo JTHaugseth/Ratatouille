@@ -12,7 +12,7 @@ import SwiftData
 struct RatatouilleApp: App {
     var body: some Scene {
         WindowGroup {
-            MainView()
+            SplashScreenView()
         }
         .modelContainer(for: [AreaDbModel.self, CategoryDbModel.self, IngredientDbModel.self, MealDbModel.self])
     }
