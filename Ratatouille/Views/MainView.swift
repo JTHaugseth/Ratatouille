@@ -10,6 +10,8 @@ import SwiftData
 
 struct MainView: View {
     @Environment(\.modelContext) private var context
+    @EnvironmentObject var darkModeManager: DarkModeManager
+    
     
     @Query(filter: #Predicate<MealDbModel>{$0.archived == false},
            sort: \MealDbModel.title, order: .forward, animation: .default) private var savedMeals: [MealDbModel]
@@ -94,6 +96,7 @@ struct MainView: View {
                     Text("Innstillinger")
                 }
         }
+        .preferredColorScheme(darkModeManager.isDarkModeEnabled ? .dark : .light)
     }
     
     private func archiveMeal(_ meal: MealDbModel) {

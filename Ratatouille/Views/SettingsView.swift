@@ -7,9 +7,10 @@
 
 import SwiftUI
 
+// SettingsView with Dark Mode Toggle
 struct SettingsView: View {
-    @State private var isDarkModeEnabled = false
-    
+    @EnvironmentObject var darkModeManager: DarkModeManager
+
     var body: some View {
         NavigationView {
             List {
@@ -35,7 +36,7 @@ struct SettingsView: View {
                 }
                 
                 Section {
-                    Toggle(isOn: $isDarkModeEnabled) {
+                    Toggle(isOn: $darkModeManager.isDarkModeEnabled) {
                         HStack {
                             Image(systemName: "moon.fill")
                             Text("Aktiver Mørk-Modus")
