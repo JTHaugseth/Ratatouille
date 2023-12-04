@@ -1,13 +1,5 @@
-//
-//  SettingsView.swift
-//  Ratatouille
-//
-//  Created by Julian Haugseth on 27/11/2023.
-//
-
 import SwiftUI
 
-// SettingsView with Dark Mode Toggle
 struct SettingsView: View {
     @EnvironmentObject var darkModeManager: DarkModeManager
     

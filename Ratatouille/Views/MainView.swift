@@ -1,10 +1,3 @@
-//
-//  MainView.swift
-//  Ratatouille
-//
-//  Created by Julian Haugseth on 27/11/2023.
-//
-
 import SwiftUI
 import SwiftData
 
@@ -27,7 +20,7 @@ struct MainView: View {
                             .scaledToFit()
                             .frame(width: 60, height: 60)
                             .foregroundColor(.gray)
-                        Text("Ingen matoppskrifter")
+                        Text("Ingen Oppskrifter")
                             .font(.title)
                             .foregroundColor(.gray)
                         Spacer()
@@ -74,7 +67,7 @@ struct MainView: View {
                             .tint(.yellow)
                         }
                     }
-                    .navigationBarTitle("Mine oppskrifter")
+                    .navigationBarTitle("Mine Oppskrifter")
                 }
             }
             .tabItem {
@@ -103,14 +96,12 @@ struct MainView: View {
         meal.archived = true
         meal.update = Date.now
         try? context.save()
-        print("Archiving meal: \(meal.title)")
     }
     
     private func favoriteMeal(_ meal: MealDbModel) {
         meal.favorite.toggle()
         meal.update = Date.now
         try? context.save()
-        print("Favoriting meal: \(meal.title)")
     }
 }
 

@@ -1,13 +1,7 @@
-//
-//  ApiService.swift
-//  Ratatouille
-//
-//  Created by Julian Haugseth on 27/11/2023.
-//
-
 import Foundation
 
 class ApiService {
+    
     func fetchMealsBySearch(searchString: String, completion: @escaping (Result<[Meal], Error>) -> Void) {
         let encodedSearchString = searchString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
         let urlString = "https://www.themealdb.com/api/json/v1/1/search.php?s=\(encodedSearchString)"

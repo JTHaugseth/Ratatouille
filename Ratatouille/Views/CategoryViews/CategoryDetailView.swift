@@ -1,10 +1,3 @@
-//
-//  CategoryDetailView.swift
-//  Ratatouille
-//
-//  Created by Julian Haugseth on 29/11/2023.
-//
-
 import SwiftUI
 import SwiftData
 
@@ -49,10 +42,10 @@ struct CategoryDetailView: View {
         }
         .navigationBarItems(
             trailing: HStack {
-                Button("Archive") {
+                Button("Arkiver") {
                     archiveCategory(category)
                 }
-                Button("Save") {
+                Button("Lagre") {
                     updateCategory(category)
                 }
             }

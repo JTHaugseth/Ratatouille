@@ -1,10 +1,3 @@
-//
-//  SavedMealDetailView.swift
-//  Ratatouille
-//
-//  Created by Julian Haugseth on 01/12/2023.
-//
-
 import SwiftUI
 import SwiftData
 
@@ -41,7 +34,7 @@ struct SavedMealDetailView: View {
                 HStack {
                     if isEditMode {
                         TextEditor(text: $editableTitle)
-                            .frame(minHeight: 50) // Minimum height to accommodate multiple lines
+                            .frame(minHeight: 50)
                             .font(.title)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 5)
@@ -51,7 +44,7 @@ struct SavedMealDetailView: View {
                         Text(editableTitle)
                             .font(.title)
                             .fontWeight(.bold)
-                            .lineLimit(2) // Limit to two lines
+                            .lineLimit(2)
                             .fixedSize(horizontal: false, vertical: true)
                     }
                     
@@ -76,10 +69,10 @@ struct SavedMealDetailView: View {
                 
                 Group {
                     if isEditMode {
-                        Text("Ingredients")
+                        Text("Ingredienser")
                             .font(.headline)
                         TextEditor(text: $editableIngredients)
-                            .frame(minHeight: 100) // Adjust height as needed
+                            .frame(minHeight: 100)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 5)
                                     .stroke(Color.gray, lineWidth: 1)
@@ -87,16 +80,16 @@ struct SavedMealDetailView: View {
                         
                         Divider()
                         
-                        Text("Instructions")
+                        Text("Instruksjoner")
                             .font(.headline)
                         TextEditor(text: $editableInstructions)
-                            .frame(minHeight: 100) // Adjust height as needed
+                            .frame(minHeight: 100)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 5)
                                     .stroke(Color.gray, lineWidth: 1)
                             )
                     } else {
-                        Text("Ingredients")
+                        Text("Ingredienser")
                             .font(.headline)
                         VStack(alignment: .leading) {
                             ForEach(parseIngredientsList(mealDbModel.ingredients), id: \.self) { ingredient in
@@ -106,7 +99,7 @@ struct SavedMealDetailView: View {
                         
                         Divider()
                         
-                        Text("Instructions")
+                        Text("Instruksjoner")
                             .font(.headline)
                         Text(mealDbModel.instructions)
                             .font(.body)
@@ -119,23 +112,17 @@ struct SavedMealDetailView: View {
     
     private func toggleEditMode() {
         if isEditMode {
-            // Save changes to the database
             saveChanges()
         }
         isEditMode.toggle()
     }
     
     private func saveChanges() {
-        // Implement the logic to save the changes to the database
-        print("Saving changes for meal: \(editableTitle)")
-        
-        // Update mealDbModel with new values
         mealDbModel.title = editableTitle
         mealDbModel.instructions = editableInstructions
         mealDbModel.ingredients = editableIngredients
         
         try? context.save()
-        // context.save(mealDbModel) // Example, replace with actual save logic
     }
     
     private func parseIngredientsList(_ ingredients: String) -> [String] {

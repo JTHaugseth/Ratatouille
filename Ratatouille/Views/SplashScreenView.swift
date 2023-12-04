@@ -1,10 +1,3 @@
-//
-//  SplashScreenView.swift
-//  Ratatouille
-//
-//  Created by Julian Haugseth on 03/12/2023.
-//
-
 import SwiftUI
 
 struct SplashScreenView: View {
@@ -13,20 +6,19 @@ struct SplashScreenView: View {
     
     var body: some View {
         ZStack {
-            Color.black.edgesIgnoringSafeArea(.all) // Black background
+            Color.black.edgesIgnoringSafeArea(.all)
             
-            Image("rat-spoon") // Your rat image
+            Image("rat-spoon")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 200, height: 200)
                 .offset(y: startAnimation ? 0 : UIScreen.main.bounds.height)
             
-            Image("chefs-hat") // Your chef's hat image
+            Image("chefs-hat")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 65, height: 100)
                 .offset(x: startAnimation ? -15 : -20, y: startAnimation ? -50 : -UIScreen.main.bounds.height)
-            // Adjust the x and y offset values to position the hat correctly
         }
         .onAppear {
             withAnimation(.easeInOut(duration: 3)) {
@@ -37,7 +29,7 @@ struct SplashScreenView: View {
             }
         }
         .fullScreenCover(isPresented: $animationCompleted) {
-            MainView() // Transition to MainView
+            MainView()
         }
     }
 }

@@ -1,10 +1,3 @@
-//
-//  SearchBar.swift
-//  Ratatouille
-//
-//  Created by Julian Haugseth on 28/11/2023.
-//
-
 import SwiftUI
 
 struct SearchBar: UIViewRepresentable {

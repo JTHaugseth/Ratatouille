@@ -1,35 +1,23 @@
-//
-//  SearchView.swift
-//  Ratatouille
-//
-//  Created by Julian Haugseth on 27/11/2023.
-//
-
 import SwiftUI
 import SwiftData
 
 struct SearchView: View {
-    // Existing @Query properties
+    
     @Query(filter: #Predicate<AreaDbModel>{$0.archived == false}, sort: \AreaDbModel.title, order: .forward, animation: .default) private var savedAreas: [AreaDbModel]
     @Query(filter: #Predicate<CategoryDbModel>{$0.archived == false}, sort: \CategoryDbModel.title, order: .forward, animation: .default) private var savedCategories: [CategoryDbModel]
     @Query(filter: #Predicate<IngredientDbModel>{$0.archived == false}, sort: \IngredientDbModel.title, order: .forward, animation: .default) private var savedIngredients: [IngredientDbModel]
     
-    // Existing @State properties
     @State private var selectedButtonType: SelectedButtonType? = nil
     @State private var selectedItemTitle: String = ""
     @State private var showDetails = false
     @State private var meals: [Meal] = []
-    
-    // New @State property for search query
     @State private var searchQuery: String = ""
     
-    // ApiService
     private let apiService = ApiService()
     
     var body: some View {
         VStack {
             HStack {
-                // Content List
                 if !showDetails {
                     switch selectedButtonType {
                     case .area:
@@ -45,7 +33,6 @@ struct SearchView: View {
                     }
                 }
                 
-                // Details View
                 if showDetails {
                     mealListView()
                         .transition(.move(edge: .trailing))
@@ -53,13 +40,11 @@ struct SearchView: View {
             }
             .animation(.default, value: showDetails)
             
-            // Bottom bar with buttons
             bottomBar()
         }
         .animation(.default, value: selectedButtonType)
     }
     
-    // Separate list functions for each type
     private func areaList() -> some View {
         List(savedAreas, id: \.self) { area in
             Button(action: { selectItem(area.title) }) {
@@ -72,7 +57,6 @@ struct SearchView: View {
                         }
                         .frame(width: 50, height: 50)
                     } else {
-                        // Fallback if flag URL is not available
                         Color.gray
                             .frame(width: 50, height: 50)
                     }
@@ -97,7 +81,7 @@ struct SearchView: View {
                         .frame(width: 50, height: 50)
                         .cornerRadius(25)
                     } else {
-                        Color.gray // Fallback placeholder
+                        Color.gray
                             .frame(width: 50, height: 50)
                             .cornerRadius(25)
                     }
@@ -130,11 +114,11 @@ struct SearchView: View {
                     fetchMealsForSearchQuery(searchQuery)
                 }
             }
-            .padding(EdgeInsets(top: 6, leading: 15, bottom: 6, trailing: 15)) // Adjust the padding here
+            .padding(EdgeInsets(top: 6, leading: 15, bottom: 6, trailing: 15))
             .background(Color.blue)
             .foregroundColor(.white)
-            .cornerRadius(8) // Slightly smaller corner radius
-            .font(.system(size: 20)) // Optional: Adjust font size if needed
+            .cornerRadius(8)
+            .font(.system(size: 20))
         }
     }
     
@@ -181,7 +165,6 @@ struct SearchView: View {
         .padding(.bottom)
     }
     
-    // Function to handle item selection
     private func selectItem(_ title: String) {
         selectedItemTitle = title
         withAnimation {
@@ -190,7 +173,6 @@ struct SearchView: View {
         fetchMealsForSelectedItem(title)
     }
     
-    // Fetching meals based on the selected item
     private func fetchMealsForSelectedItem(_ title: String) {
         switch selectedButtonType {
         case .area:
@@ -216,7 +198,6 @@ struct SearchView: View {
         }
     }
     
-    // Handle the result of the fetch
     private func handleFetchResult(_ result: Result<[Meal], Error>) {
         DispatchQueue.main.async {
             switch result {
@@ -228,7 +209,6 @@ struct SearchView: View {
         }
     }
     
-    // Placeholder for the meal list view
     private func mealListView() -> some View {
         VStack {
             Text("Oppskrifter basert på \(selectedItemTitle)")
@@ -248,10 +228,7 @@ struct SearchView: View {
                                 .frame(width: 50, height: 50)
                                 .cornerRadius(10)
                         }
-                        
-                        // Meal name
                         Text(meal.strMeal)
-                        
                     }
                 }
             }
@@ -263,7 +240,6 @@ struct SearchView: View {
         }
     }
     
-    // Helper function for button view
     private func buttonView(systemName: String, color: Color) -> some View {
         Image(systemName: systemName)
             .foregroundColor(.white)

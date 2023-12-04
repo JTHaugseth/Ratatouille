@@ -1,9 +1,3 @@
-//
-//  MealDetailView.swift
-//  Ratatouille
-//
-//  Created by Julian Haugseth on 30/11/2023.
-//
 import SwiftUI
 import SwiftData
 
@@ -19,7 +13,7 @@ struct MealDetailView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 10) {
                 if isLoading {
-                    ProgressView("Loading...")
+                    ProgressView("Laster...")
                 } else if let mealDetail = mealDetail {
                     AsyncImage(url: URL(string: mealDetail.strMealThumb)) { image in
                         image.resizable()
@@ -38,7 +32,6 @@ struct MealDetailView: View {
                         
                         Spacer()
                         
-                        // Save Button
                         Button(action: { saveMealToDB(mealDetail) }) {
                             Image(systemName: "square.and.arrow.down")
                                 .resizable()
@@ -56,7 +49,7 @@ struct MealDetailView: View {
                     
                     Divider()
                     
-                    Text("Ingredients")
+                    Text("Ingredienser")
                         .font(.headline)
                     ForEach(0..<20, id: \.self) { index in
                         if let ingredient = ingredient(at: index, in: mealDetail),
@@ -67,12 +60,12 @@ struct MealDetailView: View {
                     
                     Divider()
                     
-                    Text("Instructions")
+                    Text("Instruksjoner")
                         .font(.headline)
                     Text(mealDetail.strInstructions)
                         .font(.body)
                 } else {
-                    Text("Meal details not available.")
+                    Text("Oppskriftsdetaljer ikke tilgjengelige")
                 }
             }
             .padding()
@@ -105,7 +98,6 @@ struct MealDetailView: View {
         newMeal.thumb = meal.strMealThumb
         newMeal.youtube = meal.strYoutube ?? ""
         
-        // Concatenate ingredients and measures
         let ingredients = (1...20).compactMap { index -> String? in
             guard let ingredient = ingredient(at: index, in: meal),
                   let measure = measure(at: index, in: meal),
@@ -118,9 +110,6 @@ struct MealDetailView: View {
         
         newMeal.ingredients = ingredients
         context.insert(newMeal)
-        // Save the new meal to the database
-        print("Saving meal: \(newMeal.title)")
-        
     }
     
     private func ingredient(at index: Int, in meal: MealDetail) -> String? {
@@ -131,7 +120,6 @@ struct MealDetailView: View {
             meal.strIngredient16, meal.strIngredient17, meal.strIngredient18, meal.strIngredient19, meal.strIngredient20
         ]
         
-        // Check if the index is within the bounds of the array
         guard index >= 0 && index < ingredientProperties.count else {
             return nil
         }

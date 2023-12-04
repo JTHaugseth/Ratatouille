@@ -1,10 +1,3 @@
-//
-//  CategoryListView.swift
-//  Ratatouille
-//
-//  Created by Julian Haugseth on 27/11/2023.
-//
-
 import SwiftUI
 import SwiftData
 
@@ -25,7 +18,7 @@ struct CategoryListView: View {
                     .frame(width: 50, height: 50)
                     .cornerRadius(25)
                 } else {
-                    Color.gray // Fallback placeholder
+                    Color.gray
                         .frame(width: 50, height: 50)
                         .cornerRadius(25)
                 }

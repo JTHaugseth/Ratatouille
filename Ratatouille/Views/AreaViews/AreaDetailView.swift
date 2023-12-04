@@ -1,10 +1,3 @@
-//
-//  AreaDetailView.swift
-//  Ratatouille
-//
-//  Created by Julian Haugseth on 29/11/2023.
-//
-
 import SwiftUI
 import SwiftData
 
@@ -43,10 +36,10 @@ struct AreaDetailView: View {
         .navigationTitle(area.title)
         .navigationBarItems(
             trailing: HStack {
-                Button("Archive") {
+                Button("Arkiver") {
                     archiveArea(area)
                 }
-                Button("Save") {
+                Button("Lagre") {
                     updateArea(area)
                 }
             }

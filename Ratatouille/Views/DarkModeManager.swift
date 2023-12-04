@@ -1,10 +1,3 @@
-//
-//  DarkModeManager.swift
-//  Ratatouille
-//
-//  Created by Julian Haugseth on 03/12/2023.
-//
-
 import Foundation
 import Combine
 

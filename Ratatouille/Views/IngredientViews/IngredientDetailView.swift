@@ -1,10 +1,3 @@
-//
-//  IngredientDetailView.swift
-//  Ratatouille
-//
-//  Created by Julian Haugseth on 29/11/2023.
-//
-
 import SwiftUI
 import SwiftData
 
@@ -49,10 +42,10 @@ struct IngredientDetailView: View {
         }
         .navigationBarItems(
             trailing: HStack {
-                Button("Archive") {
+                Button("Arkiver") {
                     archiveCategory(ingredient)
                 }
-                Button("Save") {
+                Button("Lagre") {
                     updateCategory(ingredient)
                 }
             }

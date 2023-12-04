@@ -1,10 +1,3 @@
-//
-//  AreaListView.swift
-//  Ratatouille
-//
-//  Created by Julian Haugseth on 27/11/2023.
-//
-
 import SwiftUI
 import SwiftData
 
@@ -25,7 +18,6 @@ struct AreaListView: View {
                     .frame(width: 50, height: 50)
                     
                 } else {
-                    // Fallback if the flag URL is not available
                     Color.gray
                         .frame(width: 50, height: 50)
                         .cornerRadius(25)

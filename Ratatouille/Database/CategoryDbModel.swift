@@ -1,10 +1,3 @@
-//
-//  CategoryDbModel.swift
-//  Ratatouille
-//
-//  Created by Julian Haugseth on 28/11/2023.
-//
-
 import Foundation
 import SwiftData
 

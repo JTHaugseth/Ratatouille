@@ -1,10 +1,3 @@
-//
-//  MyIngredientsView.swift
-//  Ratatouille
-//
-//  Created by Julian Haugseth on 28/11/2023.
-//
-
 import SwiftUI
 import SwiftData
 
@@ -16,10 +9,16 @@ struct MyIngredientsView: View {
     
     var body: some View {
         VStack {
-            List(savedIngredients) { ingredient in
-                NavigationLink(destination: IngredientDetailView(ingredient: .constant(ingredient))) {
-                    HStack {
-                        Text(ingredient.title)
+            if savedIngredients.isEmpty {
+                Text("Du har ingen ingredienser enda, trykk + for å importere")
+                    .multilineTextAlignment(.center)
+                    .padding()
+            } else {
+                List(savedIngredients) { ingredient in
+                    NavigationLink(destination: IngredientDetailView(ingredient: .constant(ingredient))) {
+                        HStack {
+                            Text(ingredient.title)
+                        }
                     }
                 }
             }

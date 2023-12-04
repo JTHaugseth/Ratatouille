@@ -1,10 +1,3 @@
-//
-//  AreaViewModel.swift
-//  Ratatouille
-//
-//  Created by Julian Haugseth on 27/11/2023.
-//
-
 import Foundation
 
 class AreaViewModel: ObservableObject {
@@ -39,7 +32,7 @@ class AreaViewModel: ObservableObject {
         "Thai": "TH",
         "Tunisian": "TN",
         "Turkish": "TR",
-        "Unknown": "", // No code for "Unknown"
+        "Unknown": "",
         "Vietnamese": "VN"
     ]
     

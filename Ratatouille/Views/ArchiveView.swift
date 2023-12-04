@@ -1,10 +1,3 @@
-//
-//  ArchiveView.swift
-//  Ratatouille
-//
-//  Created by Julian Haugseth on 29/11/2023.
-//
-
 import SwiftUI
 import SwiftData
 
@@ -146,7 +139,7 @@ struct ArchiveView: View {
             }
             
         }
-        .listStyle(GroupedListStyle()) // This should remove the top padding.
+        .listStyle(GroupedListStyle())
         .navigationTitle("Arkiv")
     }
 }
